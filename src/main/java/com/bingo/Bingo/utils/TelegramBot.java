@@ -29,6 +29,10 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
+        WebAppInfo webAppInfo = new WebAppInfo();
+        webAppInfo.setUrl("https://252013eef38f.ngrok-free.app/");
+
             if (update.hasMessage() && update.getMessage().hasText()) {
                 String messageText = update.getMessage().getText();
                 Long chatId = update.getMessage().getChatId();
@@ -43,8 +47,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                     KeyboardButton contactButton = new KeyboardButton("Share phone number");
                     contactButton.setRequestContact(true);
 
+                    KeyboardButton playButton = new KeyboardButton("Play");
+                    playButton.setWebApp(webAppInfo);
+
                     KeyboardRow row = new KeyboardRow();
                     row.add(contactButton);
+                    row.add(playButton);
 
                     keyboardMarkup.setKeyboard(List.of(row));
 
@@ -57,8 +65,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText("Play Bingo");
 
-                    WebAppInfo webAppInfo = new WebAppInfo();
-                    webAppInfo.setUrl("https://80c45ea8f34a.ngrok-free.app");
                     button.setWebApp(webAppInfo);
 
                     inlineKeyboardMarkup.setKeyboard(List.of(List.of(button)));
