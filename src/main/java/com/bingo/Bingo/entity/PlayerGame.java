@@ -3,12 +3,14 @@ package com.bingo.Bingo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -69,5 +71,19 @@ public class PlayerGame {
     @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerGame{" +
+                "id=" + id +
+                ", userId=" + (user != null ? user.getId() : null) +
+                ", gameId=" + (game != null ? game.getId() : null) +
+                ", bingoCardId=" + bingoCardId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", isWinner=" + isWinner +
+                ", isActive=" + isActive +
+                '}';
     }
 }

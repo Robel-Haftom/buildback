@@ -4,12 +4,14 @@ package com.bingo.Bingo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,5 +61,16 @@ public class MarkedNumber {
     @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "MarkedNumber{" +
+                "id=" + id +
+                ", playerGameId=" + (playerGame != null ? playerGame.getId() : null) +
+                ", calledNumberId=" + (calledNumber != null ? calledNumber.getId() : null) +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

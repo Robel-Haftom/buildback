@@ -3,14 +3,16 @@ package com.bingo.Bingo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -81,5 +83,23 @@ public class User {
     @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", telegramId=" + telegramId +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", totalBalance=" + totalBalance +
+                ", withdrawableBalance=" + withdrawableBalance +
+                ", nonWithdrawableBalance=" + nonWithdrawableBalance +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", playerGames.size=" + (playerGames != null ? playerGames.size() : 0) +
+                '}';
     }
 }

@@ -3,12 +3,14 @@ package com.bingo.Bingo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -57,5 +59,17 @@ public class CalledNumber {
     @PreUpdate
     private void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "CalledNumber{" +
+                "id=" + id +
+                ", number=" + number +
+                ", letter='" + letter + '\'' +
+                ", createdAt=" + createdAt +
+                ", callOrder=" + callOrder +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

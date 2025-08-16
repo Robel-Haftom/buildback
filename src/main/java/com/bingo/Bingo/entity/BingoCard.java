@@ -5,13 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -66,14 +68,20 @@ public class BingoCard {
     @PreUpdate
     private void onUpdate() throws JsonProcessingException {
         this.updatedAt = LocalDateTime.now();
+
         ObjectMapper objectMapper = new ObjectMapper();
         this.numbersJson = objectMapper.writeValueAsString(numbers);
     }
 
-    @PostLoad
-    private void loadNumbers() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        this.numbers = objectMapper.readValue(numbersJson, Integer[][].class);
+    @Override
+    public String toString() {
+        return "BingoCard{" +
+                "id=" + id +
+                ", cardNumber=" + cardNumber +
+                ", numbers=" + (numbers != null ? "[" + numbers.length + "x" + (numbers.length > 0 ? numbers[0].length : 0) + "]" : "null") +
+                ", numbersJson='" + numbersJson + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
-
 }

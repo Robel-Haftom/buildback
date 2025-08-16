@@ -12,19 +12,18 @@ public class TelegramInitializer {
 
     private final TelegramBot telegramBot;
 
-
     public TelegramInitializer(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
     }
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() {
-            try {
-                TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-                telegramBotsApi.registerBot(telegramBot);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-                System.err.println("Failed to initialize Telegram bot: " + e.getMessage());
-            }
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+            telegramBotsApi.registerBot(telegramBot);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+            System.err.println("Failed to initialize Telegram bot: " + e.getMessage());
         }
+    }
 }
